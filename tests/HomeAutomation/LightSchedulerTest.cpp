@@ -1,6 +1,7 @@
 extern "C"
 {
 #include "LightScheduler.h"
+#include "LightControllerSpy.h"
 }
 
 #include "CppUTest/TestHarness.h"
@@ -37,3 +38,9 @@ TEST(LightScheduler, ScheduleOnEverydayNotTimeYet)
   LONGS_EQUAL(LIGHT_STATE_UNKNOW, LightControllerSpy_GetLastState());
 }
 #endif
+
+TEST(LightScheduler, NoChangeToLightDuringInitialization)
+{
+  LONGS_EQUAL(LIGHT_ID_UNKNOWN, LightControllerSpy_GetLastId());
+  LONGS_EQUAL(LIGHT_STATE_UNKNOWN, LightControllerSpy_GetLastState());
+}
