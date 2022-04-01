@@ -2,6 +2,7 @@
 
 IMPORT_TEST_GROUP(LedDriver);
 IMPORT_TEST_GROUP(LightScheduler);
+IMPORT_TEST_GROUP(LightControllerSpy);
 
 int main(int argc, char** argv)
 {

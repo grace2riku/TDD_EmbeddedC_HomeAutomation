@@ -20,9 +20,11 @@ set_property(TARGET imp_cpputest PROPERTY
 # build test library for LedDriver
 add_library(LedDriverTest ./LedDriver/LedDriverTest.cpp)
 add_library(LightSchedulerTest ./HomeAutomation/LightSchedulerTest.cpp)
+add_library(LightControllerSpyTest ./HomeAutomation/LightControllerSpyTest.cpp)
 
 add_executable(RunAllTests RunAllTests.cpp)
 target_link_libraries(RunAllTests imp_cpputest
                     LedDriverTest LedDriver
                     LightSchedulerTest LightScheduler
+                    LightControllerSpyTest LightControllerSpy
                     RuntimeErrorStub)
