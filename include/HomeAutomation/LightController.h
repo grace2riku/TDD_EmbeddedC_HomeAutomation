@@ -5,7 +5,7 @@
 extern "C" {
 #endif  /* __cplusplus */
 
-
+void LightController_On(int id);
 
 #ifdef __cplusplus
 }
