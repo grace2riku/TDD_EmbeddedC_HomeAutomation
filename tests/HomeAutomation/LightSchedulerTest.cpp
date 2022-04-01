@@ -18,7 +18,7 @@ TEST_GROUP(LightScheduler)
     }
 };
 
-#if 1
+#if 0
 TEST(LightScheduler, Create)
 {
   FAIL("Start here");
