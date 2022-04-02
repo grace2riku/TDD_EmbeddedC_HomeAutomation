@@ -22,10 +22,13 @@ add_library(LedDriverTest ./LedDriver/LedDriverTest.cpp)
 add_library(LightSchedulerTest ./HomeAutomation/LightSchedulerTest.cpp)
 add_library(LightControllerSpyTest ./HomeAutomation/LightControllerSpyTest.cpp)
 add_library(LightControllerSpy ./HomeAutomation/LightControllerSpy.c)
+add_library(FakeTimeServiceTest ./HomeAutomation/FakeTimeServiceTest.cpp)
+add_library(FakeTimeService ./HomeAutomation/FakeTimeService.c)
 
 add_executable(RunAllTests RunAllTests.cpp)
 target_link_libraries(RunAllTests imp_cpputest
                     LedDriverTest LedDriver
                     LightSchedulerTest LightScheduler
                     LightControllerSpyTest LightControllerSpy
+                    FakeTimeServiceTest FakeTimeService
                     RuntimeErrorStub)
