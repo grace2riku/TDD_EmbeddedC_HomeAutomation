@@ -17,3 +17,10 @@ void TimeService_GetTime(Time* time){
     time->dayOfWeek = fakeTime.dayOfWeek;
 }
 
+void FakeTimeService_SetMinute(int minute){
+    fakeTime.minuteOfDay = minute;
+}
+
+void FakeTimeService_SetDay(int day){
+    fakeTime.dayOfWeek = day;
+}
