@@ -12,3 +12,8 @@ void LightScheduler_Wakeup(void)
 {
     
 }
+
+void LightScheduler_ScheduleTurnOn(int id, Day day, int minuteOfDay)
+{
+    
+}

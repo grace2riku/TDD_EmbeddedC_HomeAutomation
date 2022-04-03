@@ -29,16 +29,16 @@ TEST(LightScheduler, Create)
 }
 #endif
 
-#if 0
+#if 1
 TEST(LightScheduler, ScheduleOnEverydayNotTimeYet)
 {
-  LightScheduler_SchduleTurnOn(3, EVERYDAY, 1200);
+  LightScheduler_ScheduleTurnOn(3, EVERYDAY, 1200);
   FakeTimeService_SetDay(MONDAY);
   FakeTimeService_SetMinute(1199);
   LightScheduler_Wakeup();
 
-  LONGS_EQUAL(LIGHT_ID_UNKNOW, LightControllerSpy_GetLastId());
-  LONGS_EQUAL(LIGHT_STATE_UNKNOW, LightControllerSpy_GetLastState());
+  LONGS_EQUAL(LIGHT_ID_UNKNOWN, LightControllerSpy_GetLastId());
+  LONGS_EQUAL(LIGHT_STATE_UNKNOWN, LightControllerSpy_GetLastState());
 }
 #endif
 
@@ -56,3 +56,4 @@ TEST(LightScheduler, NoScheduleNothingHappens)
   LONGS_EQUAL(LIGHT_ID_UNKNOWN, LightControllerSpy_GetLastId());
   LONGS_EQUAL(LIGHT_STATE_UNKNOWN, LightControllerSpy_GetLastState());
 }
+
