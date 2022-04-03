@@ -12,11 +12,13 @@ TEST_GROUP(LightScheduler)
     void setup()
     {
       LightScheduler_Create();
+      LightController_Create();
     }
 
     void teardown()
     {
        LightScheduler_Destroy();
+       LightController_Destroy();
     }
 };
 
