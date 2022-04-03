@@ -1,6 +1,6 @@
 #include "CppUTest/CommandLineTestRunner.h"
 
-IMPORT_TEST_GROUP(LedDriver);
+//IMPORT_TEST_GROUP(LedDriver);
 IMPORT_TEST_GROUP(LightScheduler);
 IMPORT_TEST_GROUP(LightControllerSpy);
 IMPORT_TEST_GROUP(FakeTimeService);

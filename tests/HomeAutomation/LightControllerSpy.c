@@ -5,8 +5,8 @@ static int lastState;
 
 void LightControllerSpy_Create(void)
 {
-    lastId = LIGHT_ID_UNKNOWN;
-    lastState = LIGHT_STATE_UNKNOWN;
+//    lastId = LIGHT_ID_UNKNOWN;
+//    lastState = LIGHT_STATE_UNKNOWN;
 }
 
 void LightControllerSpy_Destroy(void)
@@ -21,6 +21,17 @@ int LightControllerSpy_GetLastId(void)
 int LightControllerSpy_GetLastState(void)
 {
     return lastState;
+}
+
+void LightController_Create(void)
+{
+    lastId = LIGHT_ID_UNKNOWN;
+    lastState = LIGHT_STATE_UNKNOWN;
+}
+
+void LightController_Destroy(void)
+{
+
 }
 
 void LightController_On(int id)
