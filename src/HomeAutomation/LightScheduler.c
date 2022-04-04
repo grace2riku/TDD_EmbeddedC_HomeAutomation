@@ -15,6 +15,13 @@ enum
 
 static ScheduledLightEvent scheduledEvent;
 
+static void scheduleEvent(int id, Day day, int minuteOfDay, int event)
+{
+    scheduledEvent.minuteOfDay = minuteOfDay;
+    scheduledEvent.event = event;
+    scheduledEvent.id = id;
+}
+
 void LightScheduler_Create(void)
 {
     scheduledEvent.id = UNUSED;
@@ -42,14 +49,10 @@ void LightScheduler_Wakeup(void)
 
 void LightScheduler_ScheduleTurnOn(int id, Day day, int minuteOfDay)
 {
-    scheduledEvent.id = id;
-    scheduledEvent.minuteOfDay = minuteOfDay;
-    scheduledEvent.event = TURN_ON;
+    scheduleEvent(id, day, minuteOfDay, TURN_ON);
 }
 
 void LightScheduler_ScheduleTurnOff(int id, Day day, int minuteOfDay)
 {
-    scheduledEvent.id = id;
-    scheduledEvent.minuteOfDay = minuteOfDay;
-    scheduledEvent.event = TURN_OFF;
+    scheduleEvent(id, day, minuteOfDay, TURN_OFF);
 }
