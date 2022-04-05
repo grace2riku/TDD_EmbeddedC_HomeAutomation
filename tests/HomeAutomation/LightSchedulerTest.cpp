@@ -92,3 +92,11 @@ IGNORE_TEST(LightScheduler, ScheduleWeekEndItsMonday)
   LightScheduler_Wakeup();
   checkLightState(LIGHT_ID_UNKNOWN, LIGHT_STATE_UNKNOWN);  
 }
+
+TEST(LightScheduler, ScheduleTuesdayButItsMonday)
+{
+  LightScheduler_ScheduleTurnOn(3, TUESDAY, 1200);
+  setTimeTo(MONDAY, 1200);
+  LightScheduler_Wakeup();
+  checkLightState(LIGHT_ID_UNKNOWN, LIGHT_STATE_UNKNOWN);  
+}
