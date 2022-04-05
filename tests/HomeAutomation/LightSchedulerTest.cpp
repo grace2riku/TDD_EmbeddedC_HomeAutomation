@@ -148,3 +148,18 @@ TEST(LightScheduler, WeekdayScheduleIsOperatedOnMonday)
   LightScheduler_Wakeup();
   checkLightState(3, LIGHT_ON);  
 }
+
+
+TEST_GROUP(LightSchegulerInitAndCleanup)
+{  
+};
+
+TEST(LightSchegulerInitAndCleanup, CreateStartsOneMinuteAlarm)
+{
+  LightController_Create();
+  POINTER_EQUAL((void*)LightScheduler_Wakeup,
+                (void*)FakeTimeService_GetAlarmCallback());
+
+  LONGS_EQUAL(60, FakeTimeService_GetAlarmPeriod());
+  LightScheduler_Destroy();
+}
