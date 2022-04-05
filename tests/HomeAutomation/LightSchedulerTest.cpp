@@ -65,7 +65,7 @@ TEST(LightScheduler, NoScheduleNothingHappens)
   checkLightState(LIGHT_ID_UNKNOWN, LIGHT_STATE_UNKNOWN);  
 }
 
-TEST(LightScheduler, ScheduleOnEverydayItsTime)
+IGNORE_TEST(LightScheduler, ScheduleOnEverydayItsTime)
 {
   LightScheduler_ScheduleTurnOn(3, EVERYDAY, 1200);
   setTimeTo(MONDAY, 1200);
@@ -75,7 +75,7 @@ TEST(LightScheduler, ScheduleOnEverydayItsTime)
   checkLightState(3, LIGHT_ON);  
 }
 
-TEST(LightScheduler, ScheduleOffEverydayItsTime)
+IGNORE_TEST(LightScheduler, ScheduleOffEverydayItsTime)
 {
   LightScheduler_ScheduleTurnOff(3, EVERYDAY, 1200);
   setTimeTo(MONDAY, 1200);
