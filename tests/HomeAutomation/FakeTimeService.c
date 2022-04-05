@@ -24,3 +24,13 @@ void FakeTimeService_SetMinute(int minute){
 void FakeTimeService_SetDay(int day){
     fakeTime.dayOfWeek = day;
 }
+
+WakeUpCallback FakeTimeService_GetAlarmCallback(void)
+{
+    return 0;    
+}
+
+int FakeTimeService_GetAlarmPeriod(void)
+{
+    return 0;
+}

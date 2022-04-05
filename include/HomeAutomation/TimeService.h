@@ -15,4 +15,6 @@ void TimeService_Create(void);
 void TimeService_Destroy(void);
 void TimeService_GetTime(Time* time);
 
+typedef void (*WakeUpCallback)(void);
+
 #endif  /* D_FakeLightScheduler_H */
