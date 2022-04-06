@@ -163,3 +163,11 @@ TEST(LightSchegulerInitAndCleanup, CreateStartsOneMinuteAlarm)
   LONGS_EQUAL(60, FakeTimeService_GetAlarmPeriod());
   LightScheduler_Destroy();
 }
+
+TEST(LightSchegulerInitAndCleanup, DestroyCancelsOneMinuteAlarm)
+{
+  LightScheduler_Create();
+  LightScheduler_Destroy();
+  POINTERS_EQUAL(NULL,
+                (void*)FakeTimeService_GetAlarmCallback());
+}
