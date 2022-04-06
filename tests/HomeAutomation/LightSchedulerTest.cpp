@@ -156,7 +156,7 @@ TEST_GROUP(LightSchegulerInitAndCleanup)
 
 TEST(LightSchegulerInitAndCleanup, CreateStartsOneMinuteAlarm)
 {
-  LightController_Create();
+  LightScheduler_Create();
   POINTERS_EQUAL((void*)LightScheduler_Wakeup,
                 (void*)FakeTimeService_GetAlarmCallback());
 
