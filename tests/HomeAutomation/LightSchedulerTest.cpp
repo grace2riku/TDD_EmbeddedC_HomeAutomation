@@ -27,10 +27,25 @@ TEST_GROUP(LightScheduler)
       FakeTimeService_SetMinute(minuteOfDay);
     }
 
+#if 0
     void checkLightState(int id, int level)
     {
       LONGS_EQUAL(id, LightControllerSpy_GetLastId());
       LONGS_EQUAL(level, LightControllerSpy_GetLastState());
+    }
+#endif
+
+    void checkLightState(int id, int level)
+    {
+      if (id == LIGHT_ID_UNKNOWN)
+      {
+        LONGS_EQUAL(id, LightControllerSpy_GetLastId());
+        LONGS_EQUAL(level, LightControllerSpy_GetLastState());
+      }
+      else 
+      {
+        LONGS_EQUAL(level, LightControllerSpy_GetLightState(id));
+      }
     }
 
 };
