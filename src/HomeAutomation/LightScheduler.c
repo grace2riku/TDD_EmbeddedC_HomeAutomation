@@ -10,14 +10,33 @@ typedef struct
 
 enum
 {
-    UNUSED = -1, 
+//    UNUSED = -1, 
     TURN_OFF, TURN_ON
 };
 
+enum
+{
+    MAX_EVENTS = 128, UNUSED = -1
+};
+
 static ScheduledLightEvent scheduledEvent;
+static ScheduledLightEvent scheduledEvents[MAX_EVENTS];
 
 static void scheduleEvent(int id, Day day, int minuteOfDay, int event)
 {
+    int i;
+
+    for (i = 0; i < MAX_EVENTS; i++)
+    {
+        if (scheduledEvents[i].id == UNUSED)
+        {
+            scheduledEvents[i].day = day;
+            scheduledEvents[i].minuteOfDay = minuteOfDay;
+            scheduledEvents[i].event = event;
+            scheduledEvents[i].id = id;
+            break;
+        }
+    }
     scheduledEvent.minuteOfDay = minuteOfDay;
     scheduledEvent.event = event;
     scheduledEvent.day = day;
@@ -65,8 +84,11 @@ static void processEventDueNow(Time* time, ScheduledLightEvent* lightEvent)
 
 void LightScheduler_Create(void)
 {
+    int i;
     scheduledEvent.id = UNUSED;
 
+    for (i = 0; i < MAX_EVENTS; i++)
+        scheduledEvents[i].id = UNUSED;
     TimeService_SetPeriodicAlarmInSeconds(60, LightScheduler_Wakeup);
 }
 
@@ -77,8 +99,14 @@ void LightScheduler_Destroy(void)
 
 void LightScheduler_Wakeup(void)
 {
+    int i;
     Time time;
     TimeService_GetTime(&time);
+
+    for (i = 0; i < MAX_EVENTS; i++)
+    {
+        processEventDueNow(&time, &scheduledEvents[i]);
+    }
 
     processEventDueNow(&time, &scheduledEvent);
 }
