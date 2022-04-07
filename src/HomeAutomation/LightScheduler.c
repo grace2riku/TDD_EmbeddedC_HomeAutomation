@@ -19,7 +19,6 @@ enum
     MAX_EVENTS = 128, UNUSED = -1
 };
 
-static ScheduledLightEvent scheduledEvent;
 static ScheduledLightEvent scheduledEvents[MAX_EVENTS];
 
 static void scheduleEvent(int id, Day day, int minuteOfDay, int event)
@@ -37,10 +36,6 @@ static void scheduleEvent(int id, Day day, int minuteOfDay, int event)
             break;
         }
     }
-    scheduledEvent.minuteOfDay = minuteOfDay;
-    scheduledEvent.event = event;
-    scheduledEvent.day = day;
-    scheduledEvent.id = id;
 }
 
 static void operateLight(ScheduledLightEvent* lightEvent)
@@ -85,7 +80,6 @@ static void processEventDueNow(Time* time, ScheduledLightEvent* lightEvent)
 void LightScheduler_Create(void)
 {
     int i;
-    scheduledEvent.id = UNUSED;
 
     for (i = 0; i < MAX_EVENTS; i++)
         scheduledEvents[i].id = UNUSED;
@@ -107,8 +101,6 @@ void LightScheduler_Wakeup(void)
     {
         processEventDueNow(&time, &scheduledEvents[i]);
     }
-
-    processEventDueNow(&time, &scheduledEvent);
 }
 
 void LightScheduler_ScheduleTurnOn(int id, Day day, int minuteOfDay)
