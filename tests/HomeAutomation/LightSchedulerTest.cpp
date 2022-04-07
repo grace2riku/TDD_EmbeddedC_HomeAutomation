@@ -186,3 +186,17 @@ TEST(LightSchegulerInitAndCleanup, DestroyCancelsOneMinuteAlarm)
   POINTERS_EQUAL(NULL,
                 (void*)FakeTimeService_GetAlarmCallback());
 }
+
+
+TEST(LightScheduler, ScheduleTwoEventsAtTheSameTime)
+{
+  LightScheduler_ScheduleTurnOn(3, SUNDAY, 1200);
+  LightScheduler_ScheduleTurnOn(12, SUNDAY, 1200);
+
+  setTimeTo(SUNDAY, 1200);
+
+  LightScheduler_Wakeup();
+
+  checkLightState(3, LIGHT_ON);  
+  checkLightState(12, LIGHT_ON);  
+}
