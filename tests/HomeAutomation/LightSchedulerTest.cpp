@@ -234,3 +234,10 @@ TEST(LightScheduler, RemoveMultipleScheduledEvent)
   checkLightState(6, LIGHT_STATE_UNKNOWN);
   checkLightState(7, LIGHT_ON);
 }
+
+TEST(LightScheduler, AcceptsValidLightIds)
+{
+  LONGS_EQUAL(LS_OK, LightScheduler_ScheduleTurnOn(0, MONDAY, 600));
+  LONGS_EQUAL(LS_OK, LightScheduler_ScheduleTurnOn(15, MONDAY, 600));    
+  LONGS_EQUAL(LS_OK, LightScheduler_ScheduleTurnOn(31, MONDAY, 600));    
+}
