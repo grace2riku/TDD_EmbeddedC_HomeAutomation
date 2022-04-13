@@ -24,6 +24,7 @@ add_library(LightControllerSpyTest ./HomeAutomation/LightControllerSpyTest.cpp)
 add_library(LightControllerSpy ./HomeAutomation/LightControllerSpy.c)
 add_library(FakeTimeServiceTest ./HomeAutomation/FakeTimeServiceTest.cpp)
 add_library(FakeTimeService ./HomeAutomation/FakeTimeService.c)
+add_library(RandomMinuteTest ./HomeAutomation/RandomMinuteTest.cpp)
 
 add_executable(RunAllTests RunAllTests.cpp)
 target_link_libraries(RunAllTests imp_cpputest
@@ -31,4 +32,5 @@ target_link_libraries(RunAllTests imp_cpputest
                     LightSchedulerTest LightScheduler
                     LightControllerSpyTest LightControllerSpy
                     FakeTimeServiceTest FakeTimeService
+                    RandomMinuteTest RandomMinute
                     RuntimeErrorStub)
