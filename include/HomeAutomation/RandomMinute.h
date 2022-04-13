@@ -7,7 +7,7 @@
  *
  **********************************************************/
 
-void RandomMinute_Create(void);
+void RandomMinute_Create(int bound);
 void RandomMinute_Destroy(void);
 
 int RandomMinute_Get(void);

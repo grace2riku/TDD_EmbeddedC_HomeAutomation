@@ -5,13 +5,16 @@ extern "C"
 
 #include "CppUTest/TestHarness.h"
 
+enum { BOUND = 30 };
+
 TEST_GROUP(RandomMinute)
 {
     int minute;
 
     void setup()
     {
-      RandomMinute_Create();
+      RandomMinute_Create(BOUND);
+      srand(1);
     }
 
     void teardown()
@@ -21,7 +24,11 @@ TEST_GROUP(RandomMinute)
 
     void AssertMinuteIsInRange()
     {
-      FAIL("Minute out of range");
+      if (minute < -BOUND || minute > BOUND)
+      {
+        printf("bad minute value: %d\n", minute);
+        FAIL("Minute out of range");
+      }
     }
 };
 

@@ -1,7 +1,12 @@
 #include "RandomMinute.h"
+#include <stdlib.h> // srand
 
-void RandomMinute_Create(void)
+static int bound = 0;
+
+void RandomMinute_Create(int b)
 {
+    bound = b;
+    srand(10);
 }
 
 void RandomMinute_Destroy(void)
@@ -10,5 +15,5 @@ void RandomMinute_Destroy(void)
 
 int RandomMinute_Get(void)
 {
-    return 0;
+    return bound - rand() % (bound * 2 + 1);
 }
