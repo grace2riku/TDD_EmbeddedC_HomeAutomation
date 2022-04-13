@@ -8,4 +8,7 @@ void RandomMinute_Destroy(void)
 {
 }
 
-
+int RandomMinute_Get(void)
+{
+    return 0;
+}

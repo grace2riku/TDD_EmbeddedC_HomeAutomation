@@ -10,4 +10,6 @@
 void RandomMinute_Create(void);
 void RandomMinute_Destroy(void);
 
+int RandomMinute_Get(void);
+
 #endif  /* D_FakeRandomMinute_H */

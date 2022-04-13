@@ -7,6 +7,8 @@ extern "C"
 
 TEST_GROUP(RandomMinute)
 {
+    int minute;
+
     void setup()
     {
       RandomMinute_Create();
@@ -16,10 +18,19 @@ TEST_GROUP(RandomMinute)
     {
        RandomMinute_Destroy();
     }
+
+    void AssertMinuteIsInRange()
+    {
+      FAIL("Minute out of range");
+    }
 };
 
-TEST(RandomMinute, Create)
+TEST(RandomMinute, GetIsInRange)
 {
-  FAIL("RandomMinute FAIL!!!");
+  for (int i = 0; i < 100; i++)
+  {
+    minute = RandomMinute_Get();
+    AssertMinuteIsInRange();
+  }
 }
 
