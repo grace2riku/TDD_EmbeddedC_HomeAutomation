@@ -5,6 +5,7 @@ IMPORT_TEST_GROUP(LightScheduler);
 IMPORT_TEST_GROUP(LightControllerSpy);
 IMPORT_TEST_GROUP(FakeTimeService);
 IMPORT_TEST_GROUP(RandomMinute);
+IMPORT_TEST_GROUP(LightSchedulerRandomize);
 
 int main(int argc, char** argv)
 {
