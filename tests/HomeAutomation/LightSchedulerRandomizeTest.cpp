@@ -3,6 +3,8 @@ extern "C"
 //#include "LightSchedulerRandomize.h"
 #include "LightScheduler.h"
 #include "LightControllerSpy.h"
+#include "FakeTimeService.h"
+#include "FakeRandomMinute.h"
 }
 
 #include "CppUTest/TestHarness.h"
@@ -18,6 +20,24 @@ TEST_GROUP(LightSchedulerRandomize)
     {
 //       LightSchedulerRandomize_Destroy();
     }
+
+    void setTimeTo(int day, int minute){
+      FakeTimeService_SetDay(day);
+      FakeTimeService_SetMinute(minute);
+    }
+
+    void checkLightState(int id, int level)
+    {
+      if (id == LIGHT_ID_UNKNOWN)
+      {
+        LONGS_EQUAL(id, LightControllerSpy_GetLastId());
+        LONGS_EQUAL(level, LightControllerSpy_GetLastState());
+      }
+      else
+        LONGS_EQUAL(level, LightControllerSpy_GetLightState(id));
+    }
+
+
 };
 
 TEST(LightSchedulerRandomize, TurnsOnEarly)
