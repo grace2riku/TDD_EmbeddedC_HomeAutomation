@@ -11,13 +11,22 @@ extern "C"
 
 TEST_GROUP(LightSchedulerRandomize)
 {
+    int (*saveRamdomMinute_Get)();
+
     void setup()
     {
+      LightController_Create();
+      LightScheduler_Create();
+      saveRamdomMinute_Get = RandomMinute_Get;
+      RandomMinute_Get = FakeRandomMinute_Get;
 //      LightSchedulerRandomize_Create();
     }
 
     void teardown()
     {
+      LightScheduler_Destroy();
+      LightController_Destroy();
+      RandomMinute_Get = saveRamdomMinute_Get;
 //       LightSchedulerRandomize_Destroy();
     }
 
@@ -40,7 +49,8 @@ TEST_GROUP(LightSchedulerRandomize)
 
 };
 
-TEST(LightSchedulerRandomize, TurnsOnEarly)
+//TEST(LightSchedulerRandomize, TurnsOnEarly)
+IGNORE_TEST(LightSchedulerRandomize, TurnsOnEarly)
 {
   FakeRandomMinute_SetFirstAndIncrement(-10, 5);
   LightScheduler_ScheduleTurnOn(4, EVERYDAY, 600);

@@ -10,6 +10,7 @@
 void RandomMinute_Create(int bound);
 void RandomMinute_Destroy(void);
 
-int RandomMinute_Get(void);
+extern int (*RandomMinute_Get)(void);
+//int RandomMinute_Get(void);
 
 #endif  /* D_FakeRandomMinute_H */

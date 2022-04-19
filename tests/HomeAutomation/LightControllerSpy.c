@@ -1,5 +1,6 @@
 #include "LightControllerSpy.h"
 #include "memory.h"
+//#include "stdio.h"
 
 static int lastId;
 static int lastState;
@@ -67,5 +68,11 @@ int LightControllerSpy_GetLightState(int id)
     if (!isIdInRange(id))
         return LIGHT_STATE_UNKNOWN;
 //    return lights[id-1];
+
+//    printf("\n");
+//    printf("id=%d\n", id);
+//    for (int i = 0; i < MAX_LIGHTS; i++) {
+//        printf("lights[%d]=%d\n", i, lights[i]);
+//    }
     return lights[id];
 }

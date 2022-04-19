@@ -1,17 +1,20 @@
 #include "LightScheduler.h"
 #include "LightController.h"
+#include "RandomMinute.h"
 typedef struct
 {
     int id;
     Day day;
     int minuteOfDay;
     int event;
+    int randomize;
+    int randomMinutes;
 } ScheduledLightEvent;
 
 enum
 {
 //    UNUSED = -1, 
-    TURN_OFF, TURN_ON
+    TURN_OFF, TURN_ON, RAMDOM_OFF, RANDOM_ON
 };
 
 enum
@@ -132,7 +135,31 @@ void LightScheduler_ScheduleRemove(int id, Day day, int minute)
     }    
 }
 
+static void resetRandomize(ScheduledLightEvent* e)
+{
+    if (e->randomize == RANDOM_ON)
+    {
+        e->randomMinutes = RandomMinute_Get();
+        printf("e->randomMinutes = RandomMinute_Get(): %d\n", e->randomMinutes);
+    }
+    else {
+        e->randomMinutes = 0;
+        printf("e->randomMinutes = 0\n");
+    }
+}
+
 void LightScheduler_Randomize(int id, Day day, int minuteOfDay)
 {
-    
+    int i;
+
+    for (i = 0; i < MAX_EVENTS; i++)
+    {
+        ScheduledLightEvent* e = &scheduledEvents[i];
+        if (e->id == id && e->day == day && e->minuteOfDay == minuteOfDay)
+        {
+            e->randomize = RANDOM_ON;
+            resetRandomize(e);
+        }
+    }    
+
 }
