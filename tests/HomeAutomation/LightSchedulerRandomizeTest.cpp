@@ -11,23 +11,18 @@ extern "C"
 
 TEST_GROUP(LightSchedulerRandomize)
 {
-    int (*saveRamdomMinute_Get)();
-
     void setup()
     {
       LightController_Create();
       LightScheduler_Create();
-      saveRamdomMinute_Get = RandomMinute_Get;
-      RandomMinute_Get = FakeRandomMinute_Get;
-//      LightSchedulerRandomize_Create();
+
+      UT_PTR_SET(RandomMinute_Get, FakeRandomMinute_Get);
     }
 
     void teardown()
     {
       LightScheduler_Destroy();
       LightController_Destroy();
-      RandomMinute_Get = saveRamdomMinute_Get;
-//       LightSchedulerRandomize_Destroy();
     }
 
     void setTimeTo(int day, int minute){
