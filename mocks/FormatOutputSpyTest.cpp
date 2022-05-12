@@ -41,3 +41,11 @@ TEST(FormatOutputSpy, PrintMultipleTimes)
   STRCMP_EQUAL("Hello, World\n", FormatOutputSpy_GetOutput());
 }
 
+TEST(FormatOutputSpy, PrintMultipleOutputsPastFull)
+{
+  FormatOutputSpy_Create(12);
+  FormatOutput("12345");
+  FormatOutput("67890");
+  FormatOutput("ABCDEF");
+  STRCMP_EQUAL("1234567890AB", FormatOutputSpy_GetOutput());
+}
