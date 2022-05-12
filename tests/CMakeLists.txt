@@ -37,4 +37,6 @@ target_link_libraries(RunAllTests imp_cpputest
                     RandomMinuteTest RandomMinute
                     LightSchedulerRandomizeTest
                     RuntimeErrorStub
-                    FakeRandomMinute)
+                    FakeRandomMinute
+                    FormatOutputSpyTest FormatOutputSpy
+                    )
