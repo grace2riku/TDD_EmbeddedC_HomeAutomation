@@ -39,4 +39,5 @@ target_link_libraries(RunAllTests imp_cpputest
                     RuntimeErrorStub
                     FakeRandomMinute
                     FormatOutputSpyTest FormatOutputSpy
+                    Utils
                     )

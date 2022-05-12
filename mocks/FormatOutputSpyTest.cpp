@@ -9,7 +9,8 @@ TEST_GROUP(FormatOutputSpy)
 {
     void setup()
     {
-      FormatOutputSpy_Create();
+      UT_PTR_SET(FormatOutput, FormatOutputSpy);
+//      FormatOutputSpy_Create();
     }
 
     void teardown()
@@ -18,8 +19,10 @@ TEST_GROUP(FormatOutputSpy)
     }
 };
 
-TEST(FormatOutputSpy, Create)
+TEST(FormatOutputSpy, HelloWorld)
 {
-  FAIL("FormatOutputSpy TEST_GROUP Create TEST FAIL.");
+  FormatOutputSpy_Create(20);
+  FormatOutput("Hello, World\n");
+  STRCMP_EQUAL("Hello, World\n", FormatOutputSpy_GetOutput());
 }
 

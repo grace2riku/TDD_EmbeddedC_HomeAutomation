@@ -7,7 +7,11 @@
  *
  **********************************************************/
 
-void FormatOutputSpy_Create(void);
+#include "Utils.h"
+
+void FormatOutputSpy_Create(int size);
 void FormatOutputSpy_Destroy(void);
+const char* FormatOutputSpy_GetOutput(void);
+int FormatOutputSpy(const char* format, ...);
 
 #endif  /* D_FakeFormatOutputSpy_H */

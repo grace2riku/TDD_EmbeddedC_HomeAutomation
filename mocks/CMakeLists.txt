@@ -1,6 +1,7 @@
 project (LedDriver)
 
 include_directories(${PROJECT_SOURCE_DIR}/../include)
+include_directories(${PROJECT_SOURCE_DIR}/../include/util)
 include_directories($ENV{CPPUTEST_HOME}/include)
 
 add_library(RuntimeErrorStub RuntimeErrorStub.c)
