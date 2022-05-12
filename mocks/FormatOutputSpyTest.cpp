@@ -26,3 +26,9 @@ TEST(FormatOutputSpy, HelloWorld)
   STRCMP_EQUAL("Hello, World\n", FormatOutputSpy_GetOutput());
 }
 
+TEST(FormatOutputSpy, LimitTheOutputBufferSize)
+{
+  FormatOutputSpy_Create(4);
+  FormatOutput("Hello, World\n");
+  STRCMP_EQUAL("Hell", FormatOutputSpy_GetOutput());
+}
