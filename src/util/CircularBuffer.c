@@ -46,6 +46,8 @@ void CircularBuffer_Print(CircularBuffer self)
     FormatOutput("Circular buffer content:\n<");
 
     for (i = 0; i < self->count; i++) {
+        if (i != 0)
+            FormatOutput(", ");
         FormatOutput("%d", self->values[currentValue++]);
     }
 
