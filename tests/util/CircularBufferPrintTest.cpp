@@ -1,11 +1,16 @@
 extern "C"
 {
+#include "CircularBuffer.h" 
 }
 
 #include "CppUTest/TestHarness.h"
 
 TEST_GROUP(CircularBufferPrint)
 {
+    CircularBuffer buffer;
+    const char* expectedOutput;
+    const char* actualOutput;
+    
     void setup()
     {
     }
@@ -15,8 +20,10 @@ TEST_GROUP(CircularBufferPrint)
     }
 };
 
-TEST(CircularBufferPrint, Create)
+TEST(CircularBufferPrint, PrintEmpty)
 {
-  FAIL("TEST(CircularBufferPrint, Create) here");
+  expectedOutput = "Circular buffer content:\n<>\n";
+  CircularBuffer_Print(buffer);
+  STRCMP_EQUAL(expectedOutput, actualOutput);
 }
 

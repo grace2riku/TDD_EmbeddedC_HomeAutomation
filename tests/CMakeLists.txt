@@ -4,6 +4,7 @@ project (LedDriver)
 include_directories(${PROJECT_SOURCE_DIR}/../include)
 include_directories(${PROJECT_SOURCE_DIR}/../include/LedDriver)
 include_directories(${PROJECT_SOURCE_DIR}/../include/HomeAutomation)
+include_directories(${PROJECT_SOURCE_DIR}/../include/util)
 
 # include mocks only for test code
 include_directories(${PROJECT_SOURCE_DIR}/../mocks)
@@ -42,4 +43,5 @@ target_link_libraries(RunAllTests imp_cpputest
                     FormatOutputSpyTest FormatOutputSpy
                     Utils
                     CircularBufferPrintTest
+                    CircularBuffer
                     )
