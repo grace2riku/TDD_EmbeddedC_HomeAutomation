@@ -52,3 +52,20 @@ TEST(CircularBufferPrint, PrintNotYetWrappedOrFull)
   CircularBuffer_Print(buffer);
   STRCMP_EQUAL(expectedOutput, actualOutput);
 }
+
+TEST(CircularBufferPrint, PrintNotYetWrappedAndIsFull)
+{
+  expectedOutput = "Circular buffer content:\n<31, 41, 59, 26, 53>\n";
+  CircularBuffer b = CircularBuffer_Create(5);
+  CircularBuffer_Put(b, 31);
+  CircularBuffer_Put(b, 41);
+  CircularBuffer_Put(b, 59);
+  CircularBuffer_Put(b, 26);
+  CircularBuffer_Put(b, 5);
+
+  CircularBuffer_Print(b);
+  STRCMP_EQUAL(expectedOutput, actualOutput);
+
+  CircularBuffer_Destroy(b);
+}
+
