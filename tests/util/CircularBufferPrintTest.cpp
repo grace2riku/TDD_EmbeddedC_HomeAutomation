@@ -69,3 +69,21 @@ TEST(CircularBufferPrint, PrintNotYetWrappedAndIsFull)
   CircularBuffer_Destroy(b);
 }
 
+TEST(CircularBufferPrint, PrintOldToNewWhenWrappedAndFull)
+{
+  expectedOutput = "Circular buffer content:\n<201, 202, 203, 204, 999>\n";
+  CircularBuffer b = CircularBuffer_Create(5);
+  CircularBuffer_Put(b, 200);
+  CircularBuffer_Put(b, 201);
+  CircularBuffer_Put(b, 202);
+  CircularBuffer_Put(b, 203);
+  CircularBuffer_Put(b, 204);
+  CircularBuffer_Get(b);
+  CircularBuffer_Put(b, 999);
+
+  CircularBuffer_Print(b);
+
+  STRCMP_EQUAL(expectedOutput, actualOutput);
+  CircularBuffer_Destroy(b);
+}
+
