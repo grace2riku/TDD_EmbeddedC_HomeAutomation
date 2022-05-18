@@ -29,6 +29,12 @@ void CircularBuffer_Destroy(CircularBuffer self)
     free(self);
 }
 
+int CircularBuffer_Put(CircularBuffer self, int value)
+{
+
+    return 1;
+}
+
 void CircularBuffer_Print(CircularBuffer self)
 {
     int i;
