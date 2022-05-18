@@ -31,7 +31,8 @@ void CircularBuffer_Destroy(CircularBuffer self)
 
 int CircularBuffer_Put(CircularBuffer self, int value)
 {
-
+    self->count++;
+    self->values[self->index++] = value;
     return 1;
 }
 
@@ -43,6 +44,10 @@ void CircularBuffer_Print(CircularBuffer self)
     currentValue = self->outdex;
 
     FormatOutput("Circular buffer content:\n<");
+
+    for (i = 0; i < self->count; i++) {
+        FormatOutput("%d", self->values[currentValue++]);
+    }
 
     FormatOutput(">\n");           
 }
