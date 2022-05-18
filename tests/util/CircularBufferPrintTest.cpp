@@ -61,7 +61,7 @@ TEST(CircularBufferPrint, PrintNotYetWrappedAndIsFull)
   CircularBuffer_Put(b, 41);
   CircularBuffer_Put(b, 59);
   CircularBuffer_Put(b, 26);
-  CircularBuffer_Put(b, 5);
+  CircularBuffer_Put(b, 53);
 
   CircularBuffer_Print(b);
   STRCMP_EQUAL(expectedOutput, actualOutput);
