@@ -4,6 +4,7 @@ include_directories(${PROJECT_SOURCE_DIR}/../include)
 include_directories(${PROJECT_SOURCE_DIR}/../include/LedDriver/)
 include_directories(${PROJECT_SOURCE_DIR}/../include/HomeAutomation/)
 include_directories(${PROJECT_SOURCE_DIR}/../include/util)
+include_directories(${PROJECT_SOURCE_DIR}/../include/IO)
 
 ## Configure a header file to pass some of the CMake settings
 ## to the source code
@@ -18,3 +19,4 @@ add_library(LightScheduler ./HomeAutomation/LightScheduler.c)
 add_library(RandomMinute ./HomeAutomation/RandomMinute.c)
 add_library(Utils ./util/Utils.c)
 add_library(CircularBuffer ./util/CircularBuffer.c)
+add_library(Flash ./IO/Flash.c)

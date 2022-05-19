@@ -8,6 +8,7 @@ IMPORT_TEST_GROUP(RandomMinute);
 IMPORT_TEST_GROUP(LightSchedulerRandomize);
 IMPORT_TEST_GROUP(FormatOutputSpy);
 IMPORT_TEST_GROUP(CircularBufferPrint);
+IMPORT_TEST_GROUP(Flash);
 
 int main(int argc, char** argv)
 {

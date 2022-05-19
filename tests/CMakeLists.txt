@@ -5,6 +5,7 @@ include_directories(${PROJECT_SOURCE_DIR}/../include)
 include_directories(${PROJECT_SOURCE_DIR}/../include/LedDriver)
 include_directories(${PROJECT_SOURCE_DIR}/../include/HomeAutomation)
 include_directories(${PROJECT_SOURCE_DIR}/../include/util)
+include_directories(${PROJECT_SOURCE_DIR}/../include/IO)
 
 # include mocks only for test code
 include_directories(${PROJECT_SOURCE_DIR}/../mocks)
@@ -29,6 +30,7 @@ add_library(RandomMinuteTest ./HomeAutomation/RandomMinuteTest.cpp)
 add_library(LightSchedulerRandomizeTest ./HomeAutomation/LightSchedulerRandomizeTest.cpp)
 add_library(FakeRandomMinute ./HomeAutomation/FakeRandomMinute.c)
 add_library(CircularBufferPrintTest ./util/CircularBufferPrintTest.cpp)
+add_library(FlashTest ./IO/FlashTest.cpp)
 
 add_executable(RunAllTests RunAllTests.cpp)
 target_link_libraries(RunAllTests imp_cpputest
@@ -44,4 +46,5 @@ target_link_libraries(RunAllTests imp_cpputest
                     Utils
                     CircularBufferPrintTest
                     CircularBuffer
+                    FlashTest Flash
                     )
