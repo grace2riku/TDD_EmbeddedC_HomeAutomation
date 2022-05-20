@@ -8,4 +8,8 @@ void Flash_Destroy(void)
 {
 }
 
+int Flash_Write(ioAddress offset, ioData data)
+{
+    return 0;
+}
 

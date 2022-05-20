@@ -47,4 +47,5 @@ target_link_libraries(RunAllTests imp_cpputest
                     CircularBufferPrintTest
                     CircularBuffer
                     FlashTest Flash
+                    MockIO
                     )
