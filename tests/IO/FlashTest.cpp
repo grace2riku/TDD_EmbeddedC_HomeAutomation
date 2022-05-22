@@ -22,9 +22,9 @@ TEST_GROUP(Flash)
     }
 };
 
-TEST(Flash, WriteSucceeds_ReadImmediately)
+TEST(Flash, WriteSucceeds_ReadyImmediately)
 {
-  int result;
+  int result = 0;
   MockIO_Expect_Write(0, 0x40);
   MockIO_Expect_Write(0x1000, 0xBEEF);
   MockIO_Expect_ReadThenReturn(0, 1<<7);
