@@ -9,6 +9,19 @@ void Flash_Destroy(void)
 {
 }
 
+static int writeError(int status)
+{
+    IO_Write(CommandRegister, Reset);
+    if (status & VppErrorBit)
+        return FLASH_VPP_ERROR;
+    else if (status & ProgramErrorBit)
+        return FLASH_PROGRAM_ERROR;
+    else if (status & BlockProtectionErrorBit)
+        return FLASH_PROTECTED_BLCOK_ERROR;
+    else
+        return FLASH_UNKNOWN_PROGRAM_ERROR;
+}
+
 int Flash_Write(ioAddress address, ioData data)
 {
     ioData status = 0;
@@ -20,19 +33,7 @@ int Flash_Write(ioAddress address, ioData data)
         status = IO_Read(StatusRegister);
 
     if (status != ReadyBit)
-    {
-        IO_Write(CommandRegister, Reset);
-
-        if (status & VppErrorBit)
-            return FLASH_VPP_ERROR;
-        else if (status & ProgramErrorBit)
-            return FLASH_PROGRAM_ERROR;
-        else if (status & BlockProtectionErrorBit)
-            return FLASH_PROTECTED_BLCOK_ERROR;
-        else
-            return FLASH_UNKNOWN_PROGRAM_ERROR;
-    }
-
+        return writeError(status);
     if (data != IO_Read(address))
         return FLASH_READ_BACK_ERROR;
 
