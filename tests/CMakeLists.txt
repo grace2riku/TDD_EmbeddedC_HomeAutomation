@@ -48,4 +48,5 @@ target_link_libraries(RunAllTests imp_cpputest
                     CircularBuffer
                     FlashTest Flash
                     MockIO
+                    FakeMicroTime
                     )
