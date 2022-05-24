@@ -20,7 +20,8 @@ TEST_GROUP(Flash)
       data = 0xBEEF;
       result = -1;
 
-      MockIO_Create(10);
+      MockIO_Create(20);
+      FakeMicroTime_Init(0, 1);
       Flash_Create();
     }
 
