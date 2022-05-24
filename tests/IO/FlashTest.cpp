@@ -78,3 +78,16 @@ TEST(Flash, WriteFails_FlashReadBackError)
 
   LONGS_EQUAL(FLASH_READ_BACK_ERROR, result);
 }
+
+TEST(Flash, WriteFails_IgnoresOtherBitsUntilReady)
+{
+  MockIO_Expect_Write(CommandRegister, ProgramCommand);
+  MockIO_Expect_Write(address, data);
+  MockIO_Expect_ReadThenReturn(StatusRegister, ~ReadyBit);
+  MockIO_Expect_ReadThenReturn(StatusRegister, ReadyBit);
+  MockIO_Expect_ReadThenReturn(address, data);
+
+  result = Flash_Write(address, data);
+
+  LONGS_EQUAL(FLASH_SUCCESS, result);
+}
