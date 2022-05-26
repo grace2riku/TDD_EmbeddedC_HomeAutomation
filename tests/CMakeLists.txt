@@ -49,4 +49,5 @@ target_link_libraries(RunAllTests imp_cpputest
                     FlashTest Flash
                     MockIO
                     FakeMicroTime
+                    IO
                     )

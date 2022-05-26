@@ -16,6 +16,9 @@ TEST_GROUP(Flash)
 
     void setup()
     {
+      UT_PTR_SET(IO_Write, MockIO_IO_Write);
+      UT_PTR_SET(IO_Read, MockIO_IO_Read);
+
       address = 0x1000;
       data = 0xBEEF;
       result = -1;

@@ -166,7 +166,7 @@ static int expectedDataIsNot(ioData data)
     return expected.value != data;
 }
 
-void IO_Write(ioAddress addr, ioData value)
+void MockIO_IO_Write(ioAddress addr, ioData value)
 {
     setExpectedAndActual(addr, value);
     failWhenNotInitialized();
@@ -177,7 +177,7 @@ void IO_Write(ioAddress addr, ioData value)
     getExpectationCount++;
 }
 
-ioData IO_Read(ioAddress addr)
+ioData MockIO_IO_Read(ioAddress addr)
 {
     setExpectedAndActual(addr, NoExpectedValue);
     failWhenNotInitialized();
