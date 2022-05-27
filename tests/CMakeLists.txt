@@ -31,6 +31,7 @@ add_library(LightSchedulerRandomizeTest ./HomeAutomation/LightSchedulerRandomize
 add_library(FakeRandomMinute ./HomeAutomation/FakeRandomMinute.c)
 add_library(CircularBufferPrintTest ./util/CircularBufferPrintTest.cpp)
 add_library(FlashTest ./IO/FlashTest.cpp)
+add_library(FlashTest_CppUMock ./IO/FlashTest_CppUMock.cpp)
 
 add_executable(RunAllTests RunAllTests.cpp)
 target_link_libraries(RunAllTests imp_cpputest
@@ -50,4 +51,5 @@ target_link_libraries(RunAllTests imp_cpputest
                     MockIO
                     FakeMicroTime
                     IO
+                    FlashTest_CppUMock
                     )

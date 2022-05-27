@@ -9,6 +9,7 @@ IMPORT_TEST_GROUP(LightSchedulerRandomize);
 IMPORT_TEST_GROUP(FormatOutputSpy);
 IMPORT_TEST_GROUP(CircularBufferPrint);
 IMPORT_TEST_GROUP(Flash);
+IMPORT_TEST_GROUP(FlashTest_CppUMock);
 
 int main(int argc, char** argv)
 {
