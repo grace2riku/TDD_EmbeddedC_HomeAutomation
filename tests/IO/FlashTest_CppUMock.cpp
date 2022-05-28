@@ -1,9 +1,26 @@
+#include <CppUTestExt/MockSupport.h>
+
 extern "C"
 {
 #include "Flash.h"
 #include "MockIO.h"
 #include "m28w160ect.h"
 #include "FakeMicroTime.h"
+
+void CppUMock_IO_Write(ioAddress address, ioData data)
+{
+  mock().actualCall("IO_Write")
+        .withIntParameter("address", (int)address)
+        .withIntParameter("data", (int)data);
+}
+
+ioData CppUMock_IO_Read(ioAddress address)
+{
+  mock().actualCall("IO_Read")
+        .withIntParameter("address", (int)address);
+
+  return mock().returnValue().getIntValue();
+}
 }
 
 #include "CppUTest/TestHarness.h"
@@ -17,14 +34,14 @@ TEST_GROUP(FlashTest_CppUMock)
 
     void setup()
     {
-      UT_PTR_SET(IO_Write, MockIO_IO_Write);
-      UT_PTR_SET(IO_Read, MockIO_IO_Read);
+      UT_PTR_SET(IO_Write, CppUMock_IO_Write);
+      UT_PTR_SET(IO_Read, CppUMock_IO_Read);
 
       address = 0x1000;
       data = 0xBEEF;
       result = -1;
 
-      MockIO_Create(20);
+//      MockIO_Create(20);
       FakeMicroTime_Init(0, 1);
       Flash_Create();
     }
@@ -32,14 +49,34 @@ TEST_GROUP(FlashTest_CppUMock)
     void teardown()
     {
        Flash_Destroy();
-       MockIO_Verify_Complete();
-       MockIO_Destroy();
+       mock().checkExpectations();
+       mock().clear();
+//       MockIO_Verify_Complete();
+//       MockIO_Destroy();
     }
 };
 
 TEST(FlashTest_CppUMock, WriteSucceeds_ReadyImmediately)
 {
-  FAIL("FAIL: FlashTest_CppUMock, WriteSucceeds_ReadyImmediately\n");
+//  FAIL("FAIL: FlashTest_CppUMock, WriteSucceeds_ReadyImmediately\n");
+  mock().expectOneCall("IO_Write")
+        .withParameter("address", CommandRegister)
+        .withParameter("data", ProgramCommand);
+  mock().expectOneCall("IO_Write")
+        .withParameter("address", address)
+        .withParameter("data", data);
+
+  mock().expectOneCall("IO_Read")
+        .withParameter("address", StatusRegister)
+        .andReturnValue((int)ReadyBit);
+  mock().expectOneCall("IO_Read")
+        .withParameter("address", address)
+        .andReturnValue((int)data);
+
+  int result = Flash_Write(address, data);
+
+  LONGS_EQUAL(FLASH_SUCCESS, result);
+
 #if 0
   MockIO_Expect_Write(CommandRegister, ProgramCommand);
   MockIO_Expect_Write(address, data);

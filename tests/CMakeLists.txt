@@ -19,6 +19,11 @@ set_property(TARGET imp_cpputest PROPERTY
              IMPORTED_LOCATION $ENV{CPPUTEST_HOME}/lib/libCppUTest.a)
 #             IMPORTED_LOCATION $ENV{CPPUTEST_HOME}/src/CppUTest/libCppUTest.a)
 
+add_library(imp_libCppUTestExt STATIC IMPORTED)
+set_property(TARGET imp_libCppUTestExt PROPERTY
+             IMPORTED_LOCATION $ENV{CPPUTEST_HOME}/lib/libCppUTestExt.a)
+
+
 # build test library for LedDriver
 add_library(LedDriverTest ./LedDriver/LedDriverTest.cpp)
 add_library(LightSchedulerTest ./HomeAutomation/LightSchedulerTest.cpp)
@@ -34,7 +39,7 @@ add_library(FlashTest ./IO/FlashTest.cpp)
 add_library(FlashTest_CppUMock ./IO/FlashTest_CppUMock.cpp)
 
 add_executable(RunAllTests RunAllTests.cpp)
-target_link_libraries(RunAllTests imp_cpputest
+target_link_libraries(RunAllTests imp_cpputest imp_libCppUTestExt
                     LedDriverTest LedDriver
                     LightSchedulerTest LightScheduler
                     LightControllerSpyTest LightControllerSpy
