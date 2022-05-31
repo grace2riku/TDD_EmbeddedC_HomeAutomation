@@ -87,6 +87,33 @@ TEST(FlashTest_CppUMock, WriteSucceeds_ReadyImmediately)
 #endif
 }
 
+TEST(FlashTest_CppUMock, SucceedsNotImmediatelyReady)
+{
+  mock().expectOneCall("IO_Write")
+        .withParameter("address", CommandRegister)
+        .withParameter("data", ProgramCommand);
+  mock().expectOneCall("IO_Write")
+        .withParameter("address", address)
+        .withParameter("data", data);
+  mock().expectOneCall("IO_Read")
+        .withParameter("address", StatusRegister)
+        .andReturnValue(0);
+  mock().expectOneCall("IO_Read")
+        .withParameter("address", StatusRegister)
+        .andReturnValue(0);
+  mock().expectOneCall("IO_Read")
+        .withParameter("address", StatusRegister)
+        .andReturnValue(0);
+  mock().expectOneCall("IO_Read")
+        .withParameter("address", StatusRegister)
+        .andReturnValue(ReadyBit);
+  mock().expectOneCall("IO_Read")
+        .withParameter("address", address)
+        .andReturnValue(data);
+  int result = Flash_Write(address, data);
+
+  LONGS_EQUAL(FLASH_SUCCESS, result);
+
 #if 0
 TEST(Flash, SucceedsNotImmediatelyReady)
 {
@@ -101,7 +128,10 @@ TEST(Flash, SucceedsNotImmediatelyReady)
   result = Flash_Write(address, data);
   LONGS_EQUAL(FLASH_SUCCESS, result);
 }
+#endif
+}
 
+#if 0
 TEST(Flash, WriteFails_VppError)
 {
   MockIO_Expect_Write(CommandRegister, ProgramCommand);
