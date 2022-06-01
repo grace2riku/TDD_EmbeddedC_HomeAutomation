@@ -191,6 +191,32 @@ TEST(Flash, SucceedsNotImmediatelyReady)
 #endif
 }
 
+TEST(FlashTest_CppUMock, WriteFails_VppError)
+{
+  expectCommand(ProgramCommand);
+  expectWriteData();
+  simulateDeviceStatus(ReadyBit | VppErrorBit);
+  expectCommand(Reset);
+
+  result = Flash_Write(address, data);
+
+  LONGS_EQUAL(FLASH_VPP_ERROR, result);
+
+#if 0
+TEST(Flash, WriteFails_VppError)
+{
+  MockIO_Expect_Write(CommandRegister, ProgramCommand);
+  MockIO_Expect_Write(address, data);
+  MockIO_Expect_ReadThenReturn(StatusRegister, ReadyBit | VppErrorBit);
+  MockIO_Expect_Write(CommandRegister, Reset);
+
+  result = Flash_Write(address, data);
+
+  LONGS_EQUAL(FLASH_VPP_ERROR, result);
+}
+#endif
+}
+
 #if 0
 TEST(Flash, WriteFails_VppError)
 {
