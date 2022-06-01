@@ -297,20 +297,20 @@ TEST(Flash, WriteFails_Timeout)
 #endif
 }
 
-#if 0
-TEST(Flash, WriteFails_Timeout)
+TEST(FlashTest_CppUMock, WriteFails_TimeoutAtEndTime)
 {
-  FakeMicroTime_Init(0, 500);
+  FakeMicroTime_Init(0xffffffff, 500);
   Flash_Create();
 
-  MockIO_Expect_Write(CommandRegister, ProgramCommand);
-  MockIO_Expect_Write(address, data);
+  expectCommand(ProgramCommand);
+  expectWriteData();
   for (int i = 0; i < 10; i++)
-    MockIO_Expect_ReadThenReturn(StatusRegister, ~ReadyBit);
-  result = Flash_Write(address, data);
-  LONGS_EQUAL(FLASH_TIMEOUT_ERROR, result);
-}
+    simulateDeviceStatus(~ReadyBit);
 
+  result = Flash_Write(address, data);
+
+  LONGS_EQUAL(FLASH_TIMEOUT_ERROR, result);
+#if 0
 TEST(Flash, WriteFails_TimeoutAtEndTime)
 {
   FakeMicroTime_Init(0xffffffff, 500);
@@ -324,3 +324,4 @@ TEST(Flash, WriteFails_TimeoutAtEndTime)
   LONGS_EQUAL(FLASH_TIMEOUT_ERROR, result);
 }
 #endif
+}
