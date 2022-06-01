@@ -219,7 +219,14 @@ TEST(Flash, WriteFails_VppError)
 
 TEST(FlashTest_CppUMock, WriteFails_FlashReadBackError)
 {
-  FAIL("FlashTest_CppUMock, WriteFails_FlashReadBackError");
+  expectCommand(ProgramCommand);
+  expectWriteData();
+  simulateDeviceStatus(ReadyBit);
+  simulateReadback(data-1);
+
+  result = Flash_Write(address, data);
+
+  LONGS_EQUAL(FLASH_READ_BACK_ERROR, result);
 #if 0
 TEST(Flash, WriteFails_FlashReadBackError)
 {
