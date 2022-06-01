@@ -242,6 +242,18 @@ TEST(Flash, WriteFails_FlashReadBackError)
 #endif
 }
 
+//TEST(FlashTest_CppUMock, WriteFails_IgnoresOtherBitsUntilReady)
+TEST(FlashTest_CppUMock, WriteSucceeds_IgnoresOtherBitsUntilReady)
+{
+  expectCommand(ProgramCommand);
+  expectWriteData();
+  simulateDeviceStatus(~ReadyBit);
+  simulateDeviceStatus(ReadyBit);
+  simulateReadback(data);
+
+  result = Flash_Write(address, data);
+
+  LONGS_EQUAL(FLASH_SUCCESS, result);
 #if 0
 TEST(Flash, WriteFails_IgnoresOtherBitsUntilReady)
 {
@@ -254,8 +266,10 @@ TEST(Flash, WriteFails_IgnoresOtherBitsUntilReady)
   result = Flash_Write(address, data);
 
   LONGS_EQUAL(FLASH_SUCCESS, result);
+#endif
 }
 
+#if 0
 TEST(Flash, WriteFails_Timeout)
 {
   FakeMicroTime_Init(0, 500);
