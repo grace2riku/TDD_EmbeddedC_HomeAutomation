@@ -269,6 +269,34 @@ TEST(Flash, WriteFails_IgnoresOtherBitsUntilReady)
 #endif
 }
 
+TEST(FlashTest_CppUMock, WriteFails_Timeout)
+{
+  FakeMicroTime_Init(0, 500);
+  Flash_Create();
+
+  expectCommand(ProgramCommand);
+  expectWriteData();
+  simulateDeviceStatusWithRepeat(~ReadyBit, 10);
+
+  result = Flash_Write(address, data);
+
+  LONGS_EQUAL(FLASH_TIMEOUT_ERROR, result);
+#if 0
+TEST(Flash, WriteFails_Timeout)
+{
+  FakeMicroTime_Init(0, 500);
+  Flash_Create();
+
+  MockIO_Expect_Write(CommandRegister, ProgramCommand);
+  MockIO_Expect_Write(address, data);
+  for (int i = 0; i < 10; i++)
+    MockIO_Expect_ReadThenReturn(StatusRegister, ~ReadyBit);
+  result = Flash_Write(address, data);
+  LONGS_EQUAL(FLASH_TIMEOUT_ERROR, result);
+}
+#endif
+}
+
 #if 0
 TEST(Flash, WriteFails_Timeout)
 {
