@@ -54,24 +54,62 @@ TEST_GROUP(FlashTest_CppUMock)
 //       MockIO_Verify_Complete();
 //       MockIO_Destroy();
     }
+
+    void expectCommand(ioData command)
+    {
+      mock().expectOneCall("IO_Write")
+            .withParameter("address", CommandRegister)
+            .withParameter("data", command);
+    }
+
+    void expectWriteData()
+    {
+      mock().expectOneCall("IO_Write")
+            .withParameter("address", address)
+            .withParameter("data", data);
+    }
+
+    void simulateDeviceStatus(ioData status)
+    {
+      mock().expectOneCall("IO_Read")
+            .withParameter("address", StatusRegister)
+            .andReturnValue((int)status);
+    }
+
+    void simulateReadback(ioData data)
+    {
+      mock().expectOneCall("IO_Read")
+            .withParameter("address", address)
+            .andReturnValue((int)data);
+    }
 };
+
 
 TEST(FlashTest_CppUMock, WriteSucceeds_ReadyImmediately)
 {
-//  FAIL("FAIL: FlashTest_CppUMock, WriteSucceeds_ReadyImmediately\n");
-  mock().expectOneCall("IO_Write")
-        .withParameter("address", CommandRegister)
-        .withParameter("data", ProgramCommand);
-  mock().expectOneCall("IO_Write")
-        .withParameter("address", address)
-        .withParameter("data", data);
+//  mock().expectOneCall("IO_Write")
+//        .withParameter("address", CommandRegister)
+//        .withParameter("data", ProgramCommand);
 
-  mock().expectOneCall("IO_Read")
-        .withParameter("address", StatusRegister)
-        .andReturnValue((int)ReadyBit);
-  mock().expectOneCall("IO_Read")
-        .withParameter("address", address)
-        .andReturnValue((int)data);
+  expectCommand(ProgramCommand);
+
+//  mock().expectOneCall("IO_Write")
+//        .withParameter("address", address)
+//        .withParameter("data", data);
+
+  expectWriteData();
+
+//  mock().expectOneCall("IO_Read")
+//        .withParameter("address", StatusRegister)
+//        .andReturnValue((int)ReadyBit);
+
+  simulateDeviceStatus(ReadyBit);  
+
+//  mock().expectOneCall("IO_Read")
+//        .withParameter("address", address)
+//        .andReturnValue((int)data);
+
+  simulateReadback(data);
 
   int result = Flash_Write(address, data);
 
