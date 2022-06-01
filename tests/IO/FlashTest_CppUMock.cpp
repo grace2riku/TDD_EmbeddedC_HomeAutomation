@@ -217,19 +217,10 @@ TEST(Flash, WriteFails_VppError)
 #endif
 }
 
-#if 0
-TEST(Flash, WriteFails_VppError)
+TEST(FlashTest_CppUMock, WriteFails_FlashReadBackError)
 {
-  MockIO_Expect_Write(CommandRegister, ProgramCommand);
-  MockIO_Expect_Write(address, data);
-  MockIO_Expect_ReadThenReturn(StatusRegister, ReadyBit | VppErrorBit);
-  MockIO_Expect_Write(CommandRegister, Reset);
-
-  result = Flash_Write(address, data);
-
-  LONGS_EQUAL(FLASH_VPP_ERROR, result);
-}
-
+  FAIL("FlashTest_CppUMock, WriteFails_FlashReadBackError");
+#if 0
 TEST(Flash, WriteFails_FlashReadBackError)
 {
   MockIO_Expect_Write(CommandRegister, ProgramCommand);
@@ -241,7 +232,10 @@ TEST(Flash, WriteFails_FlashReadBackError)
 
   LONGS_EQUAL(FLASH_READ_BACK_ERROR, result);
 }
+#endif
+}
 
+#if 0
 TEST(Flash, WriteFails_IgnoresOtherBitsUntilReady)
 {
   MockIO_Expect_Write(CommandRegister, ProgramCommand);
