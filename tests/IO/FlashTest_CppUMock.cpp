@@ -82,6 +82,13 @@ TEST_GROUP(FlashTest_CppUMock)
             .withParameter("address", address)
             .andReturnValue((int)data);
     }
+
+    void simulateDeviceStatusWithRepeat(ioData status, int repeatCount)
+    {
+      mock().expectNCalls(repeatCount, "IO_Read")
+            .withParameter("address", StatusRegister)
+            .andReturnValue((int)status);
+    }
 };
 
 
@@ -127,27 +134,42 @@ TEST(FlashTest_CppUMock, WriteSucceeds_ReadyImmediately)
 
 TEST(FlashTest_CppUMock, SucceedsNotImmediatelyReady)
 {
-  mock().expectOneCall("IO_Write")
-        .withParameter("address", CommandRegister)
-        .withParameter("data", ProgramCommand);
-  mock().expectOneCall("IO_Write")
-        .withParameter("address", address)
-        .withParameter("data", data);
-  mock().expectOneCall("IO_Read")
-        .withParameter("address", StatusRegister)
-        .andReturnValue(0);
-  mock().expectOneCall("IO_Read")
-        .withParameter("address", StatusRegister)
-        .andReturnValue(0);
-  mock().expectOneCall("IO_Read")
-        .withParameter("address", StatusRegister)
-        .andReturnValue(0);
-  mock().expectOneCall("IO_Read")
-        .withParameter("address", StatusRegister)
-        .andReturnValue(ReadyBit);
-  mock().expectOneCall("IO_Read")
-        .withParameter("address", address)
-        .andReturnValue(data);
+//  mock().expectOneCall("IO_Write")
+//        .withParameter("address", CommandRegister)
+//        .withParameter("data", ProgramCommand);
+
+  expectCommand(ProgramCommand);
+
+//  mock().expectOneCall("IO_Write")
+//        .withParameter("address", address)
+//        .withParameter("data", data);
+
+  expectWriteData();
+
+//  mock().expectOneCall("IO_Read")
+//        .withParameter("address", StatusRegister)
+//        .andReturnValue(0);
+//  mock().expectOneCall("IO_Read")
+//        .withParameter("address", StatusRegister)
+//        .andReturnValue(0);
+//  mock().expectOneCall("IO_Read")
+//        .withParameter("address", StatusRegister)
+//        .andReturnValue(0);
+
+  simulateDeviceStatusWithRepeat(0, 3);
+
+//  mock().expectOneCall("IO_Read")
+//        .withParameter("address", StatusRegister)
+//        .andReturnValue(ReadyBit);
+
+  simulateDeviceStatus(ReadyBit);
+
+//  mock().expectOneCall("IO_Read")
+//        .withParameter("address", address)
+//        .andReturnValue(data);
+
+  simulateReadback(data);
+
   int result = Flash_Write(address, data);
 
   LONGS_EQUAL(FLASH_SUCCESS, result);
